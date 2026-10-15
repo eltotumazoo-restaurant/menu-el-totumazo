@@ -54,6 +54,9 @@
   };
 
   const panel = $("#panel");
+  // Inicio de la carta: justo debajo de la portada (la barra de pestañas es sticky,
+  // así que su offsetTop no sirve cuando está pegada arriba).
+  const inicioCarta = () => { const h = $(".hero"); return h.offsetTop + h.offsetHeight; };
   let actual = null;
 
   function render(c) {
@@ -97,8 +100,8 @@
     render(c);
     if (location.hash !== "#" + c.id) history.replaceState(null, "", "#" + c.id);
     if (desdeClick) {
-      const top = $(".tabs").offsetTop;
-      if (scrollY > top + 5 || scrollY < top - 5) scrollTo({ top, behavior: "smooth" });
+      const top = inicioCarta();
+      if (Math.abs(scrollY - top) > 5) scrollTo({ top, behavior: Math.abs(scrollY - top) > 2500 ? "auto" : "smooth" });
       const r = t.getBoundingClientRect();
       confeti(r.left + r.width / 2, r.bottom, 40, c.color);
     }
@@ -116,7 +119,7 @@
   const buscador = $("#buscador"), q = $("#q");
   $("#btnBuscar").addEventListener("click", () => {
     buscador.hidden = !buscador.hidden;
-    if (!buscador.hidden) { q.focus(); scrollTo({ top: $(".tabs").offsetTop, behavior: "smooth" }); }
+    if (!buscador.hidden) { q.focus(); scrollTo({ top: inicioCarta(), behavior: "smooth" }); }
     else cerrarBusqueda(true);
   });
   $("#cerrarBuscar").addEventListener("click", () => cerrarBusqueda(true));
