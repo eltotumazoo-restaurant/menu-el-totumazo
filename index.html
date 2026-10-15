@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menú El Totumazo · Sede Sur</title>
+<meta name="description" content="Carta de El Totumazo Sede Sur Cali: entradas, sopas típicas, platos de la costa, asados, desayunos, bebidas y cocteles.">
+<meta name="theme-color" content="#0b0610">
+<link rel="icon" href="img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bungee+Shade&family=Lilita+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=5">
+</head>
+<body>
+
+<canvas id="confeti" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <div class="hero__bg" style="background-image:url('img/hero.webp')"></div>
+  <svg class="banderines banderines--top" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+  <!-- Máscaras de carnaval -->
+  <svg class="mascara mascara--izq" viewBox="0 0 220 180" aria-hidden="true">
+    <use href="#svg-mascara"/>
+  </svg>
+  <svg class="mascara mascara--der" viewBox="0 0 220 180" aria-hidden="true">
+    <use href="#svg-mascara"/>
+  </svg>
+
+  <div class="hero__inner">
+    <img class="hero__logo" src="img/logo.webp" alt="El Totumazo Cali">
+    <h1 class="hero__titulo">Menú</h1>
+    <p class="hero__sede">Sede Sur · Cali</p>
+    <p class="hero__lema">¡Quien lo vive es quien lo goza!</p>
+    <a class="hero__cta" href="#carta">Ver la carta <span aria-hidden="true">↓</span></a>
+  </div>
+  <div class="vueltiao" aria-hidden="true"></div>
+</header>
+
+<nav class="tabs" id="carta" aria-label="Secciones de la carta">
+  <div class="tabs__wrap">
+    <button class="tabs__buscar" id="btnBuscar" aria-label="Buscar plato">
+      <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+    </button>
+    <div class="tabs__lista" role="tablist" id="tabs"></div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <input type="search" id="q" placeholder="Busca un plato… ej: sancocho, mojito" autocomplete="off">
+    <button id="cerrarBuscar" aria-label="Cerrar búsqueda">✕</button>
+  </div>
+</nav>
+
+<main id="panel" class="panel" tabindex="-1"></main>
+
+<footer class="pie">
+  <div class="vueltiao" aria-hidden="true"></div>
+  <img src="img/logo.webp" alt="El Totumazo" class="pie__logo">
+  <p class="pie__nota" id="notaFinal"></p>
+  <button class="pie__creditos" id="btnCreditos">Créditos de las fotos</button>
+</footer>
+
+<!-- Modal de plato -->
+<dialog id="modal" class="modal">
+  <button class="modal__cerrar" aria-label="Cerrar" data-close>✕</button>
+  <div class="modal__foto" id="mFoto"><img id="mImg" alt=""><span class="modal__ico" id="mIco"></span></div>
+  <div class="modal__info">
+    <p class="modal__cat" id="mCat"></p>
+    <h3 class="modal__nombre" id="mNombre"></h3>
+    <div id="mIngWrap">
+      <p class="modal__etq">Ingredientes</p>
+      <ul class="modal__ing" id="mIng"></ul>
+    </div>
+    <div class="modal__pie">
+      <span class="modal__etq">Precio</span>
+      <p class="modal__precio" id="mPrecio"></p>
+    </div>
+    <p class="modal__credito" id="mCred"></p>
+  </div>
+</dialog>
+
+<dialog id="modalCreditos" class="modal modal--texto">
+  <button class="modal__cerrar" aria-label="Cerrar" data-close>✕</button>
+  <div class="modal__info">
+    <h3 class="modal__nombre">Créditos de las fotos</h3>
+    <p class="modal__desc">Fotografías de referencia de Wikimedia Commons, usadas bajo sus respectivas licencias libres. Pueden reemplazarse por fotos propias en <code>img/platos/</code>.</p>
+    <ul id="listaCreditos" class="creditos"></ul>
+  </div>
+</dialog>
+
+<!-- Símbolos SVG -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gMasc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2ba6"/><stop offset=".5" stop-color="#ffd400"/><stop offset="1" stop-color="#19d3c5"/>
+    </linearGradient>
+    <symbol id="svg-mascara" viewBox="0 0 220 180">
+      <!-- plumas -->
+      <path d="M110 70 C90 20 60 5 40 0 C62 25 70 45 92 78Z" fill="#19a84b"/>
+      <path d="M110 70 C110 20 100 0 110 -10 C125 10 122 40 118 75Z" fill="#ffd400"/>
+      <path d="M110 72 C135 22 165 8 185 2 C160 28 150 48 126 80Z" fill="#e6192e"/>
+      <path d="M104 74 C70 40 40 38 20 40 C48 55 62 66 96 86Z" fill="#1e5bff"/>
+      <path d="M116 74 C150 40 180 38 200 40 C172 55 158 66 124 86Z" fill="#ff2ba6"/>
+      <!-- antifaz -->
+      <path d="M10 100 C20 70 70 64 110 86 C150 64 200 70 210 100 C214 140 180 162 146 150 C128 144 118 128 110 128 C102 128 92 144 74 150 C40 162 6 140 10 100Z" fill="url(#gMasc)" stroke="#120914" stroke-width="5"/>
+      <path d="M40 108 C50 92 76 92 88 110 C76 122 52 124 40 108Z" fill="#120914"/>
+      <path d="M180 108 C170 92 144 92 132 110 C144 122 168 124 180 108Z" fill="#120914"/>
+      <circle cx="110" cy="100" r="6" fill="#fff"/>
+      <circle cx="30" cy="96" r="4" fill="#fff"/><circle cx="190" cy="96" r="4" fill="#fff"/>
+      <path d="M24 124 l8 4 M196 124 l-8 4" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<script src="data.js?v=5"></script>
+<script src="app.js?v=5"></script>
+</body>
+</html>
